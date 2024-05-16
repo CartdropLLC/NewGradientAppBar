@@ -1,3 +1,7 @@
+## [0.3.0] - May 2024
+
+- Adaption to support Dart 3.4.0 and flutter 3.22.0
+
 ## [0.2.0] - April 2021
 
  - Update Dart 2.12.0 [#1](https://github.com/GUIKAR741/NewGradientAppBar/pull/1)

@@ -418,17 +418,21 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
     IconThemeData actionsIconTheme = widget.actionsIconTheme ??
         appBarTheme.actionsIconTheme ??
         overallIconTheme;
-    TextStyle centerStyle = (widget.textTheme?.headline6 ??
-        appBarTheme.textTheme?.headline6 ??
-        themeData.primaryTextTheme.headline6)!;
-    TextStyle? sideStyle = widget.textTheme?.bodyText2 ??
-        appBarTheme.textTheme?.bodyText2 ??
-        themeData.primaryTextTheme.bodyText2;
+    // TextStyle centerStyle = (widget.textTheme?.headline6 ??
+    //     appBarTheme.textTheme?.headline6 ??
+    //     themeData.primaryTextTheme.headline6)!;
+    TextStyle centerStyle = (widget.textTheme?.titleLarge ??
+        themeData.primaryTextTheme.titleLarge)!;
+    // TextStyle? sideStyle = widget.textTheme?.bodyText2 ??
+    //     appBarTheme.textTheme?.bodyText2 ??
+    //     themeData.primaryTextTheme.bodyText2;
+    TextStyle? sideStyle = widget.textTheme?.bodyMedium ??
+        themeData.primaryTextTheme.bodyMedium;
 
     if (widget.toolbarOpacity != 1.0) {
       final double opacity =
-          const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
-              .transform(widget.toolbarOpacity);
+      const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
+          .transform(widget.toolbarOpacity);
       if (centerStyle.color != null)
         centerStyle = centerStyle.copyWith(
             color: centerStyle.color!.withOpacity(opacity));
@@ -545,11 +549,11 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
           widget.bottomOpacity == 1.0
               ? widget.bottom!
               : Opacity(
-                  opacity:
-                      const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
-                          .transform(widget.bottomOpacity),
-                  child: widget.bottom!,
-                ),
+            opacity:
+            const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
+                .transform(widget.bottomOpacity),
+            child: widget.bottom!,
+          ),
         ],
       );
     }
@@ -576,9 +580,11 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
         ],
       );
     }
+    // final Brightness brightness = widget.brightness ??
+    //     appBarTheme.brightness ??
+    //     themeData.primaryColorBrightness;
     final Brightness brightness = widget.brightness ??
-        appBarTheme.brightness ??
-        themeData.primaryColorBrightness;
+        themeData.brightness;
     final SystemUiOverlayStyle overlayStyle = brightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
@@ -588,9 +594,10 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: Material(
-            color: appBarTheme.color ?? themeData.primaryColor,
+          // color: appBarTheme.color ?? themeData.primaryColor,
+            color: appBarTheme.backgroundColor ?? themeData.primaryColor,
             elevation:
-                widget.elevation ?? appBarTheme.elevation ?? _defaultElevation,
+            widget.elevation ?? appBarTheme.elevation ?? _defaultElevation,
             shape: widget.shape,
             child: Container(
               decoration: BoxDecoration(gradient: widget.gradient),
@@ -752,8 +759,8 @@ class _SliverGradientAppBarDelegate extends SliverPersistentHeaderDelegate {
             : flexibleSpace,
         bottom: bottom,
         elevation: forceElevated ||
-                overlapsContent ||
-                (pinned && shrinkOffset > maxExtent - minExtent)
+            overlapsContent ||
+            (pinned && shrinkOffset > maxExtent - minExtent)
             ? elevation
             : 0.0,
         gradient: gradient,
@@ -767,7 +774,7 @@ class _SliverGradientAppBarDelegate extends SliverPersistentHeaderDelegate {
         shape: shape,
         toolbarOpacity: toolbarOpacity,
         bottomOpacity:
-            pinned ? 1.0 : (visibleMainHeight / _bottomHeight).clamp(0.0, 1.0),
+        pinned ? 1.0 : (visibleMainHeight / _bottomHeight).clamp(0.0, 1.0),
       ),
     );
     return floating ? _FloatingGradientAppBar(child: appBar) : appBar;
@@ -911,7 +918,7 @@ class SliverNewGradientAppBar extends StatefulWidget {
     this.snap = false,
     this.shape,
   })  : assert(floating || !snap,
-            'The "snap" argument only makes sense for floating app bars.'),
+  'The "snap" argument only makes sense for floating app bars.'),
         super(key: key);
 
   /// A widget to display before the [title].
@@ -1192,7 +1199,7 @@ class _SliverNewGradientAppBarState extends State<SliverNewGradientAppBar>
   Widget build(BuildContext context) {
     assert(!widget.primary || debugCheckHasMediaQuery(context));
     final double topPadding =
-        widget.primary ? MediaQuery.of(context).padding.top : 0.0;
+    widget.primary ? MediaQuery.of(context).padding.top : 0.0;
     final double collapsedHeight = ((widget.pinned && widget.floating)
         ? widget.bottom!.preferredSize.height + topPadding
         : null)!;
